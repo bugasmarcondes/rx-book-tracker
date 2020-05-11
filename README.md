@@ -45,3 +45,4 @@ from() and of() are both very handy and give you a lot of options when you need 
 ## 3 creating observables
 
 - Create and combine observables from existing data, using of(), from(), concat()
+- Creating Observables to Handle Events

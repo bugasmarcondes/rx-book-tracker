@@ -1,9 +1,7 @@
 import { Observable, of, from, fromEvent, concat } from "rxjs";
 import { allBooks, allReaders } from "./data";
 
-/*
-// 1st example
-
+/* // 1&2 introduction
 // defines what will happen when the observable is executed
 let allBooksObservable$ = Observable.create((subscriber) => {
   //let allBooksObservable$ = new Observable((subscriber) => {
@@ -26,6 +24,10 @@ let allBooksObservable$ = Observable.create((subscriber) => {
 allBooksObservable$.subscribe((book) => console.log(book.title));
 */
 
+/* 
+// 3 creating observables
+// Create and combine observables from existing data, using of(), from(), concat()
+
 // passes a bunch of individual values
 let source1$ = of("hello", 10, true, allReaders[0].name);
 
@@ -38,3 +40,17 @@ let source2$ = from(allBooks);
 // source2$.subscribe((book) => console.log(book.title));
 
 concat(source1$, source2$).subscribe((value) => console.log(value));
+*/
+
+// Creating Observables to Handle Events
+let button = document.getElementById("readersButton");
+
+fromEvent(button, "click").subscribe((event) => {
+  console.log(event);
+
+  let readersDiv = document.getElementById("readers");
+
+  for (const reader of allReaders) {
+    readersDiv.innerHTML += reader.name + "<br>";
+  }
+});
