@@ -16,6 +16,7 @@ import {
   catchError,
   take,
   takeUntil,
+  flatMap,
 } from "rxjs/operators";
 import { allBooks, allReaders } from "./data";
 
@@ -192,30 +193,82 @@ books$.subscribe(
 //   )
 //   .subscribe((finalValue) => console.log(finalValue));
 //#endregion
+//#region 5.b. Using Operators
+// let timesDiv = document.getElementById("times");
+// let button = document.getElementById("timerButton");
 
-let timesDiv = document.getElementById("times");
-let button = document.getElementById("timerButton");
+// let timer$ = new Observable((subscriber) => {
+//   let i = 0;
+//   let intervalID = setInterval(() => {
+//     subscriber.next(i++);
+//   }, 1000);
 
-let timer$ = new Observable((subscriber) => {
-  let i = 0;
-  let intervalID = setInterval(() => {
-    subscriber.next(i++);
-  }, 1000);
+//   return () => {
+//     console.log(`Executing teardown code`);
+//     clearInterval(intervalID);
+//   };
+// });
 
-  return () => {
-    console.log(`Executing teardown code`);
-    clearInterval(intervalID);
-  };
-});
+// let cancelTimer$ = fromEvent(button, "click");
 
-let cancelTimer$ = fromEvent(button, "click");
+// timer$
+//   //.pipe(take(3))
+//   .pipe(takeUntil(cancelTimer$))
+//   .subscribe(
+//     (value) =>
+//       (timesDiv.innerHTML += `${new Date().toLocaleTimeString()} (${value}) <br>`),
+//     null,
+//     () => console.log(`All done!`)
+//   );
+//#endregion
 
-timer$
-  //.pipe(take(3))
-  .pipe(takeUntil(cancelTimer$))
-  .subscribe(
-    (value) =>
-      (timesDiv.innerHTML += `${new Date().toLocaleTimeString()} (${value}) <br>`),
-    null,
-    () => console.log(`All done!`)
-  );
+//#region 6.a. Creating Your Own Operators
+// function grabAndLogClassics(year, log) {
+//   return (source$) => {
+//     return new Observable((subsriber) => {
+//       // used for unsubscribe! part of the teardown process!
+//       return source$.subscribe(
+//         (book) => {
+//           if (book.publicationYear < year) {
+//             subsriber.next(book);
+//             if (log) {
+//               console.log(`Classic: ${book.title}`);
+//             }
+//           }
+//         },
+//         (err) => subsriber.error(err),
+//         () => subsriber.complete()
+//       );
+//     });
+//   };
+// }
+
+// function grabClassics(year) {
+//   return filter((book) => book.publicationYear < year);
+// }
+
+// function grabAndLogClassicsWithPipe(year, log) {
+//   return (source$) =>
+//     source$.pipe(
+//       filter((book) => book.publicationYear < year),
+//       tap(
+//         (classicBook) =>
+//           log ? console.log(`Title ${classicBook.title}`) : null
+//       )
+//     );
+// }
+
+// ajax("/api/books")
+//   .pipe(
+//     flatMap((ajaxResponse) => ajaxResponse.response),
+//     //filter((book) => book.publicationYear < 1950),
+//     //tap((oldBook) => console.log(`Title ${oldBook.title}`))
+//     //grabAndLogClassics(1930, false)
+//     //grabClassics(1950)
+//     grabAndLogClassicsWithPipe(1930, true)
+//   )
+//   .subscribe(
+//     (finalValue) => console.log(`VALUE: ${finalValue.title}`),
+//     (error) => console.log(`ERROR: ${error}`)
+//   );
+//#endregion

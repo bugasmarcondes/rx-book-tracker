@@ -71,3 +71,14 @@ from() and of() are both very handy and give you a lot of options when you need 
     - Aggregate (max, min)
     - Multicasting (unique to subjects)
 - Example using operators
+
+## 6 Creating Your Own Operators
+
+- This is the general structure
+```
+function myOperator(config1, config2) {
+    return function(source$) {
+        return newObservale$;
+    }
+}
+```
