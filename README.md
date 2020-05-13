@@ -34,7 +34,7 @@ from() and of() are both very handy and give you a lot of options when you need 
 
 # Tutorial
 
-## 1&2 introduction
+## 1&2 Introduction & Basics
 
 - yarn install
 - yarn add rxjs
@@ -42,8 +42,17 @@ from() and of() are both very handy and give you a lot of options when you need 
 - ./index.ts
     - produce a stream of data with all of the book, with allBooks array
 
-## 3 creating observables
+## 3 Creating Observables
 
 - Create and combine observables from existing data, using of(), from(), concat()
 - Creating Observables to Handle Events
 - Making AJAX Requests with RxJS
+
+## 4 Subscribing to Observables with Observers
+
+- Observers implements the observer interface, with the following methods (next, error, complete)
+    - We can create as an object literal with those methods and we can pass it to an observable via subscribe method
+    - We don't have to pass all the function names (next, error, complete) because they are optional, so I can ommit some of the them
+- In the example, the Observable will produce books in the allBooks array that was imported at the top of the file
+- Multiple observers are observing the same observable
+- Cancelling Observable Execution with a Subscription
