@@ -56,3 +56,18 @@ from() and of() are both very handy and give you a lot of options when you need 
 - In the example, the Observable will produce books in the allBooks array that was imported at the top of the file
 - Multiple observers are observing the same observable
 - Cancelling Observable Execution with a Subscription
+
+## 5 Using Operators
+
+- It enables you to do lots of things with the data produced by observables. That may include manipulating and shaping the data to meet your specific needs, combining data from multiple observables, aggregating data, etc. (e.g. camera and its accessories)
+- We can use the existing ones and also create our own operators
+- Operator is a function that returns a new function, the new function takes an observable as a parameter and returns a new observable
+- Categories
+    - Transformation (produces values very different from those produced by the source)
+    - Filtering (filter)
+    - Combination (combine 1 or more observables)
+    - Utility (how, when values are produced)
+    - Conditional (based on condition)
+    - Aggregate (max, min)
+    - Multicasting (unique to subjects)
+- Example using operators
