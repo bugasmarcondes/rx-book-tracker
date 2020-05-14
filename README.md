@@ -111,3 +111,14 @@ function myOperator(config1, config2) {
     - publishLast()
     - publishBehavior()
     - publishReplay()
+
+## 8 Controlling Execution with Schedulers
+
+- Schedulers control when an observable begins executing and when notifications are delivered to its observers
+    - queueScheduler (used to execute observables synchronously)
+    - asyncScheduler (used to execute observables assynchronously, won't block the javascript event loop while the observable executes, macro-task queue)
+    - asapScheduler (assynchronously but added to the micro-task queue, which is different from the previous one)
+    - animationFrameScheduler (used to create smooth browser animations)
+    - TestScheduler (used for testing)
+- Operator for scheduling
+    - observeOn, used when you want to perform some expensive task in the middle of a chain of operators and want to make sure you won't block the event loop

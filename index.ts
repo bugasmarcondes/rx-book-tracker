@@ -8,6 +8,10 @@ import {
   interval,
   throwError,
   Subject,
+  asyncScheduler,
+  asapScheduler,
+  queueScheduler,
+  merge,
 } from "rxjs";
 import { ajax } from "rxjs/ajax";
 import {
@@ -23,6 +27,7 @@ import {
   refCount,
   publish,
   share,
+  observeOn,
 } from "rxjs/operators";
 import { allBooks, allReaders } from "./data";
 
@@ -344,4 +349,29 @@ books$.subscribe(
 // }, 4500);
 
 // //source$.connect();
+//#endregion
+
+//#region 8. Controlling Execution with Schedulers
+// console.log("Start script");
+
+// let queue$ = of("QueueScheduler (synchronous)", queueScheduler);
+// let asap$ = of("AsapScheduler (async micro task)", asapScheduler);
+// let async$ = of("AsyncScheduler (async task)", asyncScheduler);
+
+// merge(queue$, asap$, async$).subscribe((value) => console.log(value));
+
+// console.log("End script");
+//#endregion
+//#region 8. Operator observeOn
+// console.log("Start script");
+
+// from([1, 2, 3, 4], queueScheduler)
+//   .pipe(
+//     tap((value) => console.log(`Value: ${value}`)),
+//     observeOn(asyncScheduler),
+//     tap((value) => console.log(`Doubled value: ${value * 2}`))
+//   )
+//   .subscribe();
+
+// console.log("End script");
 //#endregion
