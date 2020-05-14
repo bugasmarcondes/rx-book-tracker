@@ -82,3 +82,32 @@ function myOperator(config1, config2) {
     }
 }
 ```
+
+## 7 Using Subjects and Multicasted Observables
+
+- Are observables, have a subscribe that can be passed an observer. Are observables and also observers
+- Have state and maintain a list of observers that subscribe to them
+- Multicast (push values to more than one observer at a time) instead of unicast (produces value for one observable at a time)
+- Cold observables (common ones)
+    - Value producer created inside the observable
+    - One observer per execution
+    - Unicast
+    - Examples include interval(), ajax()
+- Hot observables
+    - Value producer exists outside the observable
+    - Shared producer allows for multiple observers
+    - Multicast
+    - Examples include Observables that wrap DOM events, Websockets
+- Multicasting operators
+    - multicast()
+        - takes a subject as parameter and must call conect() to begin execution
+    - refCount()
+        - executes when observers > 0
+    - publish()
+        - wrapper about multicast(), not required to pass it a subject
+    - share()
+        - executes when observers > 0, re-subscribes as necessary
+- Specialized subjects
+    - publishLast()
+    - publishBehavior()
+    - publishReplay()

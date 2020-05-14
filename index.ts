@@ -7,6 +7,7 @@ import {
   Subscriber,
   interval,
   throwError,
+  Subject,
 } from "rxjs";
 import { ajax } from "rxjs/ajax";
 import {
@@ -17,6 +18,11 @@ import {
   take,
   takeUntil,
   flatMap,
+  subscribeOn,
+  multicast,
+  refCount,
+  publish,
+  share,
 } from "rxjs/operators";
 import { allBooks, allReaders } from "./data";
 
@@ -271,4 +277,71 @@ books$.subscribe(
 //     (finalValue) => console.log(`VALUE: ${finalValue.title}`),
 //     (error) => console.log(`ERROR: ${error}`)
 //   );
+//#endregion
+
+//#region 7.a. Using Subjects and Multicasted Observables
+// let subject$ = new Subject();
+
+// subject$.subscribe((value) => console.log(`Observer 1: ${value}`));
+// subject$.subscribe((value) => console.log(`Observer 2: ${value}`));
+
+// subject$.next("Hello!");
+
+// let source$ = new Observable((subscriber) => {
+//   subscriber.next("Greetings!");
+// });
+
+// source$.subscribe(subject$);
+//#endregion
+//#region 7.b. Using Subjects and Multicasted Observables
+// let source$ = interval(1000).pipe(take(4));
+
+// // multicast
+// let subject$ = new Subject();
+// source$.subscribe(subject$);
+
+// // comment above and change subject$s below to source and this will become a unicast
+// subject$.subscribe((value) => console.log(`Observer 1: ${value}`));
+
+// setTimeout(() => {
+//   subject$.subscribe((value) => console.log(`Observer 2: ${value}`));
+// }, 1000);
+
+// setTimeout(() => {
+//   subject$.subscribe((value) => console.log(`Observer 3: ${value}`));
+// }, 2000);
+//#endregion
+//#region 7.c. Multicasting operators
+// let source$ = interval(1000).pipe(
+//   take(4),
+//   //multicast(new Subject()),
+//   //publish(),
+//   //refCount(),
+//   // publishLast(),
+//   // publishBehavior(),
+//   // publishReplay(),
+//   share()
+// );
+
+// // multicast
+// // just removed the subject and instead we are now using multicast operator
+
+// // comment above and change subject$s below to source and this will become a unicast
+// source$.subscribe((value) => console.log(`Observer 1: ${value}`));
+
+// setTimeout(() => {
+//   source$.subscribe((value) => console.log(`Observer 2: ${value}`));
+// }, 1000);
+
+// setTimeout(() => {
+//   source$.subscribe((value) => console.log(`Observer 3: ${value}`));
+// }, 2000);
+
+// setTimeout(() => {
+//   source$.subscribe((value) => console.log(`Observer 4: ${value}`), null, () =>
+//     console.log("Observer 4 complete.")
+//   );
+// }, 4500);
+
+// //source$.connect();
 //#endregion
