@@ -122,3 +122,19 @@ function myOperator(config1, config2) {
     - TestScheduler (used for testing)
 - Operator for scheduling
     - observeOn, used when you want to perform some expensive task in the middle of a chain of operators and want to make sure you won't block the event loop
+
+## 9 Testing Your RxJS Code
+
+- Tests async in a sync manner
+- Only works with AsyncScheduler
+- Describing tests with the marble syntax
+    - Observables
+        let source$ = helpers.cold('-a-b-c');
+        let source$ = helpers.cold('--a-4---c-8|');
+        let source$ = helpers.cold('  --a-4 12ms c-8#');
+        let source$ = helpers.hot('-a-^-b-(cde)---f|');
+    - Subscriptions
+        let subscription = '^---!';
+        let subscription = '--^-';
+        let subscription = '^ 10ms !';
+- npm install mocha ts-node chai @types/mocha --save-dev
